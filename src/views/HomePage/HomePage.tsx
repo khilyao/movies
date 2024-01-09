@@ -1,5 +1,11 @@
+import TrendingMoviesList from "components/TrendingMoviesList/TrendingMoviesList";
+
 const HomePage = () => {
-  return <></>;
+  return (
+    <>
+      <TrendingMoviesList />
+    </>
+  );
 };
 
 export default HomePage;
