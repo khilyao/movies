@@ -1,16 +1,18 @@
 import MovieItem from "types/MovieItem";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { appContext } from "contexts/AppProvider";
 
-interface TrendingMoviesListProps {
-  trendingMovies?: MovieItem[];
-}
+const TrendingMoviesList = () => {
+  const { movies } = useContext(appContext) as {
+    movies: MovieItem[];
+  };
 
-const TrendingMoviesList = ({ trendingMovies }: TrendingMoviesListProps) => {
   return (
     <>
       <h1>Trending today</h1>
       <ul>
-        {trendingMovies?.map(({ id, title }) => (
+        {movies?.map(({ id, title }) => (
           <li key={id}>
             <Link to={`/movies/${id}`}>{title}</Link>
           </li>
