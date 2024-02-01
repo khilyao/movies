@@ -3,9 +3,8 @@ import styled from "styled-components";
 
 export const Nav = styled.nav`
   margin-top: 10px;
-  border: 1px solid;
-  border-top-color: #767474;
-  border-bottom-color: #767474;
+
+  box-shadow: 1px 2px 3px #000;
 `;
 
 export const List = styled.ul`

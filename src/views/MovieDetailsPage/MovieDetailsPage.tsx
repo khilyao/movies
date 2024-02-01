@@ -1,6 +1,22 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import apiTool from "services/movieAPI";
+import {
+  Card,
+  GenreDesc,
+  MovieHeading,
+  MovieInfo,
+  Overview,
+  MovieWrapper,
+  BackBtn,
+  GenresList,
+} from "./MovieDetailsPage.styled";
+import { RotatingLines } from "react-loader-spinner";
+
+type Genre = {
+  id: number;
+  name: string;
+};
 
 type movieProps = {
   poster_path: string;
@@ -9,10 +25,11 @@ type movieProps = {
   release_date: string;
   vote_average: number;
   overview: string;
-  genres: { name: string };
+  genres?: Genre[];
 };
 
 const MoviesDetailsPage = () => {
+  const navigate = useNavigate();
   const { movieId } = useParams();
   const [currentMovie, setCurrentMovie] = useState<movieProps | null>(null);
 
@@ -31,8 +48,6 @@ const MoviesDetailsPage = () => {
     fetchData();
   }, [movieId]);
 
-  console.log(currentMovie);
-
   const {
     poster_path,
     original_title,
@@ -40,7 +55,7 @@ const MoviesDetailsPage = () => {
     release_date,
     vote_average,
     overview,
-    genres: { name },
+    genres = [],
   }: movieProps = currentMovie || {
     poster_path: "",
     original_title: "",
@@ -48,35 +63,44 @@ const MoviesDetailsPage = () => {
     release_date: "",
     vote_average: 0,
     overview: "",
-    genres: { name: "" },
+    genres: [],
   };
 
   return (
     <>
       {currentMovie ? (
-        <>
-          {title}
-          {release_date}
-          {vote_average}
-          {name}
-          {overview}
-          <div style={{ display: "flex" }}>
+        <MovieWrapper>
+          <BackBtn
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            Back
+          </BackBtn>
+          <Card>
             <img
+              width="200"
+              height="300"
               src={"https://image.tmdb.org/t/p/w200" + poster_path}
               alt={original_title}
             />
-            <div>
-              <h2>{`${title} + (${parseInt(release_date)})`}</h2>
+            <MovieInfo>
+              <MovieHeading>{`${title} (${parseInt(
+                release_date,
+              )})`}</MovieHeading>
               <p>{`${Math.round(vote_average * 10)}%`}</p>
-              <h3>Overview</h3>
+              <Overview>Overview</Overview>
               <p>{overview}</p>
-              <h3>Genres</h3>
-              <ul>name.</ul>
-            </div>
-          </div>
-        </>
+              <GenreDesc>Genres</GenreDesc>
+              <GenresList>
+                {currentMovie &&
+                  genres.map(({ name }: Genre) => <li key={name}>{name}</li>)}
+              </GenresList>
+            </MovieInfo>
+          </Card>
+        </MovieWrapper>
       ) : (
-        <p>loading...</p>
+        <RotatingLines strokeColor="black"></RotatingLines>
       )}
     </>
   );

@@ -2,6 +2,7 @@ import MovieItem from "types/MovieItem";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { appContext } from "contexts/AppProvider";
+import { Heading } from "./TrendingMoviesList.styled";
 
 const TrendingMoviesList = () => {
   const { movies } = useContext(appContext) as {
@@ -10,7 +11,7 @@ const TrendingMoviesList = () => {
 
   return (
     <>
-      <h1>Trending today</h1>
+      <Heading>Trending today</Heading>
       <ul>
         {movies?.map(({ id, title }) => (
           <li key={id}>
