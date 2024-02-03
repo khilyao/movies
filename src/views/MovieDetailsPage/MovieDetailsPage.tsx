@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import {
+  useParams,
+  useNavigate,
+  Routes,
+  Route,
+  Link,
+  useLocation,
+} from "react-router-dom";
 import apiTool from "services/movieAPI";
 import {
   Card,
@@ -12,6 +19,8 @@ import {
   GenresList,
 } from "./MovieDetailsPage.styled";
 import { RotatingLines } from "react-loader-spinner";
+import Cast from "components/Cast/Cast";
+import Reviews from "components/Reviews/Reviews";
 
 type Genre = {
   id: number;
@@ -32,6 +41,7 @@ const MoviesDetailsPage = () => {
   const navigate = useNavigate();
   const { movieId } = useParams();
   const [currentMovie, setCurrentMovie] = useState<movieProps | null>(null);
+  let { pathname } = useLocation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -98,6 +108,20 @@ const MoviesDetailsPage = () => {
               </GenresList>
             </MovieInfo>
           </Card>
+          <div>
+            <ul>
+              <li>
+                <Link to={`/movies/${movieId}/cast`}>Cast</Link>
+              </li>
+              <li>
+                <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
+              </li>
+            </ul>
+          </div>
+          <Routes>
+            <Route path={`/cast`} element={<Cast />} />
+            <Route path={`/reviews`} element={<Reviews />} />
+          </Routes>
         </MovieWrapper>
       ) : (
         <RotatingLines strokeColor="black"></RotatingLines>

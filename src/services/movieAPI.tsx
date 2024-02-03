@@ -36,6 +36,40 @@ const fetchMovieById = async (id: string) => {
     throw new Error(errorMessage);
   }
 };
-const apiTool = { fetchTrendingMovies, fetchMovieById };
+
+const fetchMovieCredits = async (id: string) => {
+  try {
+    const data = await axios
+      .get(`/movie/${id}/credits`, options)
+      .then((res) => res.data);
+
+    return data;
+  } catch (e) {
+    const errorMessage = e as string;
+
+    throw new Error(errorMessage);
+  }
+};
+
+const fetchMovieReviews = async (id: string) => {
+  try {
+    const data = await axios
+      .get(`/movie/${id}/reviews`, options)
+      .then((res) => res.data);
+
+    return data;
+  } catch (e) {
+    const errorMessage = e as string;
+
+    throw new Error(errorMessage);
+  }
+};
+
+const apiTool = {
+  fetchTrendingMovies,
+  fetchMovieById,
+  fetchMovieCredits,
+  fetchMovieReviews,
+};
 
 export default apiTool;
