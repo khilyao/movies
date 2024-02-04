@@ -1,12 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  useParams,
-  useNavigate,
-  Routes,
-  Route,
-  Link,
-  useLocation,
-} from "react-router-dom";
+import { useParams, useNavigate, Routes, Route, Link } from "react-router-dom";
 import apiTool from "services/movieAPI";
 import {
   Card,
@@ -41,7 +34,6 @@ const MoviesDetailsPage = () => {
   const navigate = useNavigate();
   const { movieId } = useParams();
   const [currentMovie, setCurrentMovie] = useState<movieProps | null>(null);
-  let { pathname } = useLocation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -119,7 +111,7 @@ const MoviesDetailsPage = () => {
             </ul>
           </div>
           <Routes>
-            <Route path={`/cast`} element={<Cast />} />
+            <Route path={`/cast`} element={<Cast movieId={movieId} />} />
             <Route path={`/reviews`} element={<Reviews />} />
           </Routes>
         </MovieWrapper>
