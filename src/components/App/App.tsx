@@ -17,7 +17,7 @@ function App() {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const { results } = await movieAPI.fetchTrendingMovies();
+        const { results } = await movieAPI.fetchMovies();
         setMovies(results);
       } catch (error) {
         console.error("Error fetching trending movies:", error);

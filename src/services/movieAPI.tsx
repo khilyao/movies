@@ -9,7 +9,7 @@ const options = {
   },
 };
 
-const fetchTrendingMovies = async () => {
+const fetchMovies = async () => {
   try {
     const data = await axios
       .get("/trending/all/day", options)
@@ -34,6 +34,18 @@ const fetchMovieById = async (id: string) => {
     const errorMessage = e as string;
 
     throw new Error(errorMessage);
+  }
+};
+
+const fetchMovieByName = async (movieTitle: string) => {
+  try {
+    const data = await axios
+      .get(`/search/movie?query=${movieTitle}`, options)
+      .then((res) => res.data);
+
+    return data;
+  } catch (error) {
+    console.error("Error fetching movies:", error);
   }
 };
 
@@ -66,10 +78,11 @@ const fetchMovieReviews = async (id: string) => {
 };
 
 const apiTool = {
-  fetchTrendingMovies,
+  fetchMovies,
   fetchMovieById,
   fetchMovieCredits,
   fetchMovieReviews,
+  fetchMovieByName,
 };
 
 export default apiTool;

@@ -112,7 +112,7 @@ const MoviesDetailsPage = () => {
           </div>
           <Routes>
             <Route path={`/cast`} element={<Cast movieId={movieId} />} />
-            <Route path={`/reviews`} element={<Reviews />} />
+            <Route path={`/reviews`} element={<Reviews movieId={movieId} />} />
           </Routes>
         </MovieWrapper>
       ) : (
