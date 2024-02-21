@@ -10,7 +10,6 @@ import debounce from "debounce";
 
 const MoviesPage = () => {
   const [userMovieInput, setUserMovieInput] = useState("");
-
   const { userMovies, setUserMovies } = useContext(appContext) as {
     userMovies: MovieItem[];
     setUserMovies: Dispatch<SetStateAction<MovieItem[]>>;
@@ -35,6 +34,7 @@ const MoviesPage = () => {
     return () => {
       debouncedFetchMovies.clear();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userMovieInput]);
 
   return (
